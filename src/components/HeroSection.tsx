@@ -16,7 +16,7 @@ const HeroSection = () => {
       <div className="absolute bottom-20 right-10 w-40 h-40 bg-neon-pink/10 rounded-full blur-xl animate-float" style={{animationDelay: '2s'}}></div>
       <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-neon-orange/10 rounded-full blur-xl animate-float" style={{animationDelay: '4s'}}></div>
 
-      <div className="container mx-auto px-6 py-20 z-10">
+      <div className="container mx-auto px-6 py-16 z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-8 text-left">
@@ -51,6 +51,7 @@ const HeroSection = () => {
                 variant="outline" 
                 size="lg" 
                 className="neon-border hover:bg-neon-blue/5 px-8 py-6 text-lg"
+                onClick={() => document.getElementById('program')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 <Code className="mr-2 w-5 h-5" />
                 Узнать программу

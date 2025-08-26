@@ -36,7 +36,7 @@ const Footer = () => {
       
       <div className="relative z-10 text-white">
         {/* Main Footer Content */}
-        <div className="container mx-auto px-6 py-16">
+        <div className="container mx-auto px-6 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Brand Column */}
             <div className="space-y-6">
@@ -125,7 +125,7 @@ const Footer = () => {
         <Separator className="bg-white/20" />
 
         {/* Bottom Footer */}
-        <div className="container mx-auto px-6 py-8">
+        <div className="container mx-auto px-6 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex flex-col md:flex-row items-center gap-4 text-sm text-white/60">
               <div className="flex items-center gap-1">

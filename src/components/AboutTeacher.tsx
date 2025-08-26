@@ -18,12 +18,12 @@ const AboutTeacher = () => {
   ];
 
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-12 relative overflow-hidden">
       <div className="absolute inset-0 gradient-light opacity-50"></div>
       
       <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl lg:text-4xl font-bold mb-6">
             Познакомьтесь с <span className="gradient-neon-text">преподавателем</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
