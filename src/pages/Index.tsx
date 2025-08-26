@@ -1,12 +1,26 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import React from 'react';
+import HeroSection from '@/components/HeroSection';
+import AboutTeacher from '@/components/AboutTeacher';
+import CourseProgram from '@/components/CourseProgram';
+import WhyHSchool from '@/components/WhyHSchool';
+import PricingSection from '@/components/PricingSection';
+import CertificatesSection from '@/components/CertificatesSection';
+import TestimonialsSection from '@/components/TestimonialsSection';
+import PreRegistrationForm from '@/components/PreRegistrationForm';
+import Footer from '@/components/Footer';
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-gradient-to-b from-background via-secondary/20 to-background">
+      <HeroSection />
+      <AboutTeacher />
+      <CourseProgram />
+      <WhyHSchool />
+      <PricingSection />
+      <CertificatesSection />
+      <TestimonialsSection />
+      <PreRegistrationForm />
+      <Footer />
     </div>
   );
 };
