@@ -60,11 +60,11 @@ const Index = () => {
           </ScrollAnimation>
         </section>
 
-        <section id="testimonials">
+        {/* <section id="testimonials">
           <ScrollAnimation animation="fadeInUp" delay={200}>
             <TestimonialsSection />
           </ScrollAnimation>
-        </section>
+        </section> */}
 
         <ScrollAnimation animation="fadeInUp" delay={200}>
           <FAQ />

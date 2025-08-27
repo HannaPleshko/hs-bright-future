@@ -8,14 +8,15 @@ import { Badge } from '@/components/ui/badge';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
-import { Send, Sparkles, Users, User, Calendar, MessageCircle, Zap, Crown, CheckCircle, ArrowRight, Star } from 'lucide-react';
+import { Send, Sparkles, Users, User, Calendar, MessageCircle, Zap, Crown, CheckCircle, ArrowRight, Star, Phone, MessageCircle as Telegram, Instagram } from 'lucide-react';
 
 const PreRegistrationForm = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phone: '',
+    contactMethod: 'phone',
+    contactValue: '',
     experience: '',
     courseType: 'group',
     motivation: '',
@@ -25,15 +26,52 @@ const PreRegistrationForm = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
+  // Закрытие модального окна по Escape
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isSubmitted) {
+        setIsSubmitted(false);
+      }
+    };
+
+    if (isSubmitted) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden'; // Блокируем скролл
+      
+      // Принудительно скрываем все элементы футера
+      const footerElements = document.querySelectorAll('footer, .footer, [class*="footer"], [class*="Footer"]');
+      footerElements.forEach(el => {
+        if (el instanceof HTMLElement) {
+          el.style.zIndex = '1';
+          el.style.position = 'relative';
+        }
+      });
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset'; // Возвращаем скролл
+      
+      // Восстанавливаем z-index футера
+      const footerElements = document.querySelectorAll('footer, .footer, [class*="footer"], [class*="Footer"]');
+      footerElements.forEach(el => {
+        if (el instanceof HTMLElement) {
+          el.style.zIndex = '';
+          el.style.position = '';
+        }
+      });
+    };
+  }, [isSubmitted]);
+
+  const handleSubmit = (e: React.FormEvent) => {
     if (!formData.agreeToTerms) {
+      e.preventDefault();
       toast({
         title: "Ошибка",
         description: "Необходимо согласиться с условиями обработки данных",
@@ -41,33 +79,22 @@ const PreRegistrationForm = () => {
       });
       return;
     }
-
-    setIsSubmitting(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // Показываем страницу успеха
+    setIsSubmitted(true);
     
-    // Here you would normally send the data to your backend
-    console.log('Form submitted:', formData);
-    
-    toast({
-      title: "Заявка отправлена! 🎉",
-      description: "Мы свяжемся с вами в ближайшее время для обсуждения деталей",
-    });
-
-    // Reset form
+    // Сбрасываем форму
     setFormData({
       name: '',
       email: '',
-      phone: '',
+      contactMethod: 'phone',
+      contactValue: '',
       experience: '',
       courseType: 'group',
       motivation: '',
       hasExperience: false,
       agreeToTerms: false
     });
-    
-    setIsSubmitting(false);
   };
 
   const handleInputChange = (field: string, value: string | boolean) => {
@@ -123,8 +150,21 @@ const PreRegistrationForm = () => {
 
         <div className="max-w-4xl mx-auto">
           {/* Enhanced Registration Form */}
-                      <Card className={`p-10 bg-white/80 backdrop-blur-sm border border-white/20 rounded-2xl shadow-xl transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '400ms' }}>
-              <form onSubmit={handleSubmit} className="space-y-8">
+          {!isSubmitted && (
+            <Card className={`p-10 bg-white/80 backdrop-blur-sm border border-white/20 rounded-2xl shadow-xl transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ transitionDelay: '400ms' }}>
+              <form 
+                action="https://formspree.io/f/mjkekvor" 
+                method="POST" 
+                onSubmit={handleSubmit} 
+                className="space-y-8"
+              >
+                {/* Скрытые поля для Formspree */}
+                <input type="hidden" name="subject" value="Новая заявка на курс HSCHOOL" />
+                <input type="hidden" name="course_type" value={formData.courseType === 'group' ? 'Группа ($150/месяц)' : 'Индивидуально ($200/месяц)'} />
+                <input type="hidden" name="experience" value={formData.experience} />
+                <input type="hidden" name="motivation" value={formData.motivation} />
+                <input type="hidden" name="contact_method" value={formData.contactMethod} />
+                <input type="hidden" name="contact_value" value={formData.contactValue} />
                 <div className="space-y-8">
                   <div className="grid grid-cols-1 gap-4">
                     <div className="group">
@@ -133,6 +173,7 @@ const PreRegistrationForm = () => {
                       </Label>
                       <Input
                         id="name"
+                        name="name"
                         value={formData.name}
                         onChange={(e) => handleInputChange('name', e.target.value)}
                         onFocus={() => setFocusedField('name')}
@@ -153,6 +194,7 @@ const PreRegistrationForm = () => {
                       </Label>
                       <Input
                         id="email"
+                        name="email"
                         type="email"
                         value={formData.email}
                         onChange={(e) => handleInputChange('email', e.target.value)}
@@ -166,20 +208,54 @@ const PreRegistrationForm = () => {
                       />
                     </div>
                     <div className="group">
-                      <Label htmlFor="phone" className="text-sm font-medium text-muted-foreground group-focus-within:text-foreground transition-colors duration-300">
-                        Телефон
+                      <Label className="text-sm font-medium text-muted-foreground group-focus-within:text-foreground transition-colors duration-300">
+                        Способ связи
                       </Label>
-                      <Input
-                        id="phone"
-                        value={formData.phone}
-                        onChange={(e) => handleInputChange('phone', e.target.value)}
-                        onFocus={() => setFocusedField('phone')}
-                        onBlur={() => setFocusedField(null)}
-                        placeholder="+375 XX XXX XX XX"
-                        className={`mt-2 transition-all duration-300 ${
-                          focusedField === 'phone' ? 'ring-2 ring-blue-500/50 shadow-lg' : ''
-                        }`}
-                      />
+                      <div className="mt-2 space-y-3">
+                        <RadioGroup
+                          value={formData.contactMethod}
+                          onValueChange={(value) => handleInputChange('contactMethod', value)}
+                          className="flex flex-wrap gap-3"
+                        >
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="phone" id="contact-phone" className="text-blue-500" />
+                            <Label htmlFor="contact-phone" className="cursor-pointer text-sm flex items-center gap-2">
+                              <Phone className="w-4 h-4" />
+                              Телефон
+                            </Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="telegram" id="contact-telegram" className="text-blue-500" />
+                            <Label htmlFor="contact-telegram" className="cursor-pointer text-sm flex items-center gap-2">
+                              <Telegram className="w-4 h-4" />
+                              Telegram
+                            </Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="instagram" id="contact-instagram" className="text-blue-500" />
+                            <Label htmlFor="contact-instagram" className="cursor-pointer text-sm flex items-center gap-2">
+                              <Instagram className="w-4 h-4" />
+                              Instagram
+                            </Label>
+                          </div>
+                        </RadioGroup>
+                        
+                        <Input
+                          name="contact_value"
+                          value={formData.contactValue}
+                          onChange={(e) => handleInputChange('contactValue', e.target.value)}
+                          onFocus={() => setFocusedField('contact')}
+                          onBlur={() => setFocusedField(null)}
+                          placeholder={
+                            formData.contactMethod === 'phone' ? '+375 XX XXX XX XX' :
+                            formData.contactMethod === 'telegram' ? '@username или +375 XX XXX XX XX' :
+                            '@username'
+                          }
+                          className={`transition-all duration-300 ${
+                            focusedField === 'contact' ? 'ring-2 ring-blue-500/50 shadow-lg' : ''
+                          }`}
+                        />
+                      </div>
                     </div>
                   </div>
 
@@ -207,34 +283,36 @@ const PreRegistrationForm = () => {
                     <Label htmlFor="experience" className="text-sm font-medium text-muted-foreground group-focus-within:text-foreground transition-colors duration-300">
                       Опыт в программировании
                     </Label>
-                    <Input
-                      id="experience"
-                      value={formData.experience}
-                      onChange={(e) => handleInputChange('experience', e.target.value)}
-                      onFocus={() => setFocusedField('experience')}
-                      onBlur={() => setFocusedField(null)}
-                      placeholder="Например: 'Полный новичок' или 'Изучал HTML/CSS'"
-                      className={`mt-2 transition-all duration-300 ${
-                        focusedField === 'experience' ? 'ring-2 ring-blue-500/50 shadow-lg' : ''
-                      }`}
-                    />
+                                            <Input
+                          id="experience"
+                          name="experience"
+                          value={formData.experience}
+                          onChange={(e) => handleInputChange('experience', e.target.value)}
+                          onFocus={() => setFocusedField('experience')}
+                          onBlur={() => setFocusedField(null)}
+                          placeholder="Например: 'Полный новичок' или 'Изучал HTML/CSS'"
+                          className={`mt-2 transition-all duration-300 ${
+                            focusedField === 'experience' ? 'ring-2 ring-blue-500/50 shadow-lg' : ''
+                          }`}
+                        />
                   </div>
 
                   <div className="group">
                     <Label htmlFor="motivation" className="text-sm font-medium text-muted-foreground group-focus-within:text-foreground transition-colors duration-300">
                       Что мотивирует изучать программирование?
                     </Label>
-                    <Textarea
-                      id="motivation"
-                      value={formData.motivation}
-                      onChange={(e) => handleInputChange('motivation', e.target.value)}
-                      onFocus={() => setFocusedField('motivation')}
-                      onBlur={() => setFocusedField(null)}
-                      placeholder="Расскажите о ваших целях и мотивации..."
-                      className={`mt-2 min-h-[120px] transition-all duration-300 ${
-                        focusedField === 'motivation' ? 'ring-2 ring-blue-500/50 shadow-lg' : ''
-                      }`}
-                    />
+                                          <Textarea
+                        id="motivation"
+                        name="motivation"
+                        value={formData.motivation}
+                        onChange={(e) => handleInputChange('motivation', e.target.value)}
+                        onFocus={() => setFocusedField('motivation')}
+                        onBlur={() => setFocusedField(null)}
+                        placeholder="Расскажите о ваших целях и мотивации..."
+                        className={`mt-2 min-h-[120px] transition-all duration-300 ${
+                          focusedField === 'motivation' ? 'ring-2 ring-blue-500/50 shadow-lg' : ''
+                        }`}
+                      />
                   </div>
 
                   <div className="flex items-start space-x-3 p-4 bg-gradient-to-r from-blue-50 to-pink-50 rounded-xl border border-blue-100">
@@ -252,23 +330,73 @@ const PreRegistrationForm = () => {
 
                 <Button 
                   type="submit" 
-                  disabled={!formData.name || !formData.email || !formData.agreeToTerms || isSubmitting}
+                  disabled={!formData.name || !formData.email || !formData.contactValue || !formData.agreeToTerms}
                   className="w-full btn-modern text-white font-semibold py-6 text-lg relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isSubmitting ? (
-                    <span className="flex items-center gap-2">
-                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                      Отправляем заявку...
-                    </span>
-                  ) : (
-                    <span className="relative z-10 flex items-center gap-2">
-                      <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                      Записаться на курс
-                    </span>
-                  )}
+                  <span className="relative z-10 flex items-center gap-2">
+                    <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                    Записаться на курс
+                  </span>
                 </Button>
               </form>
             </Card>
+          )}
+            
+            {/* Модальное окно успешной отправки */}
+            {isSubmitted && (
+              <div 
+                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999999999] flex items-center justify-center p-4 transition-all duration-300"
+                onClick={() => setIsSubmitted(false)}
+                style={{ 
+                  zIndex: 9999999999,
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0
+                }}
+              >
+                <Card 
+                  className="p-10 bg-gradient-to-br from-green-50 to-blue-50 border-2 border-green-200 rounded-2xl shadow-2xl text-center max-w-2xl w-full max-h-[90vh] overflow-y-auto relative transform transition-all duration-300 scale-100"
+                  onClick={(e) => e.stopPropagation()}
+                  style={{ 
+                    zIndex: 9999999999,
+                    position: 'relative'
+                  }}
+                >
+                  <div className="space-y-6">
+                    {/* Кнопка закрытия */}
+                    <button
+                      onClick={() => setIsSubmitted(false)}
+                      className="absolute top-4 right-4 w-8 h-8 bg-white/80 hover:bg-white rounded-full flex items-center justify-center transition-colors duration-200 hover:scale-110"
+                    >
+                      <span className="text-gray-600 text-xl font-bold">×</span>
+                    </button>
+                    
+                    <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mx-auto">
+                      <CheckCircle className="w-12 h-12 text-white" />
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <h3 className="text-3xl font-bold text-gray-800">
+                        Спасибо за заявку! 🎉
+                      </h3>
+                      <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                        Мы получили вашу заявку на курс. В ближайшее время свяжемся с вами для обсуждения деталей и ответим на все вопросы.
+                      </p>
+                    </div>
+                    
+                  
+                    <Button 
+                      onClick={() => setIsSubmitted(false)}
+                      className="btn-modern text-white font-semibold px-8 py-3"
+                    >
+                      Закрыть
+                    </Button>
+                  </div>
+                </Card>
+              </div>
+            )}
         </div>
       </div>
     </section>

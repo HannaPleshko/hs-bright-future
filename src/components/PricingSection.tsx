@@ -6,7 +6,6 @@ import { Check, Star, Users, User, Gift, Briefcase, GraduationCap, HeadphonesIco
 
 const PricingSection = () => {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
-  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
 
   const scrollToForm = () => {
     document.getElementById('pre-registration')?.scrollIntoView({ behavior: 'smooth' });
@@ -50,7 +49,15 @@ const PricingSection = () => {
       price: '$200',
       period: 'в месяц',
       badge: { text: 'Максимальный результат', icon: Crown, color: 'from-pink-500 to-orange-600' },
-      features: [...features, 'Дополнительные занятия по запросу'],
+      features: [
+        "Гибкий график обучения подстраеваемый под ваш ритм",
+        "3 занятия в неделю по 1.5-2 часа",
+        "Доступ к платформе обучения 24/7",
+        "Индивидуальные занятия при необходимости",
+        "Подготовка к собеседованиям",
+        "Помощь с портфолио и резюме",
+        "Поддержка при выходе на фриланс"
+      ],
       buttonText: 'Записаться индивидуально',
       gradient: 'from-pink-500 to-orange-600',
       icon: Crown,
@@ -88,10 +95,9 @@ const PricingSection = () => {
               key={plan.id}
               className={`relative p-8 border-0 transition-all duration-500 cursor-pointer group ${
                 hoveredCard === plan.id ? 'scale-105' : 'scale-100'
-              } ${selectedPlan === plan.id ? 'ring-4 ring-blue-500/30' : ''}`}
+              }`}
               onMouseEnter={() => setHoveredCard(plan.id)}
               onMouseLeave={() => setHoveredCard(null)}
-              onClick={() => setSelectedPlan(plan.id)}
             >
               {/* Animated Background */}
               <div className={`absolute inset-0 bg-gradient-to-br ${plan.gradient} opacity-5 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl`}></div>
@@ -143,6 +149,19 @@ const PricingSection = () => {
                     </li>
                   ))}
                 </ul>
+
+                {/* Registration Button at Bottom of Card */}
+                <div className="mt-8">
+                  <Button 
+                    className={`w-full bg-gradient-to-r ${plan.gradient} hover:opacity-90 text-white font-semibold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group/btn`}
+                    onClick={scrollToForm}
+                  >
+                    <span className="flex items-center gap-2">
+                      {plan.buttonText}
+                      <Zap className="w-5 h-5 group-hover/btn:rotate-12 transition-transform duration-300" />
+                    </span>
+                  </Button>
+                </div>
               </div>
 
               {/* Hover Effects */}
@@ -150,33 +169,6 @@ const PricingSection = () => {
             </Card>
           ))}
         </div>
-
-        {/* Action Buttons */}
-        <div className="text-center mb-20">
-          <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
-            <Button 
-              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:opacity-90 text-white font-semibold px-12 py-6 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group/btn"
-              onClick={scrollToForm}
-            >
-              <span className="flex items-center gap-2">
-                Записаться в группу
-                <Zap className="w-5 h-5 group-hover/btn:rotate-12 transition-transform duration-300" />
-              </span>
-            </Button>
-            
-            <Button 
-              className="bg-gradient-to-r from-pink-500 to-orange-600 hover:opacity-90 text-white font-semibold px-12 py-6 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group/btn"
-              onClick={scrollToForm}
-            >
-              <span className="flex items-center gap-2">
-                Записаться индивидуально
-                <Zap className="w-5 h-5 group-hover/btn:rotate-12 transition-transform duration-300" />
-              </span>
-            </Button>
-          </div>
-        </div>
-
-
 
         {/* Enhanced Next Course Start */}
         <div className="text-center">
@@ -192,7 +184,7 @@ const PricingSection = () => {
                 Ближайший старт
               </Badge>
               <h3 className="text-3xl font-bold group-hover:text-gradient-animate transition-all duration-500">
-                Курс стартует в начале сентября
+                Запись на 2026 год
               </h3>
               <p className="text-muted-foreground text-lg leading-relaxed">
                 Для подготовки к курсу мы предоставим вам материалы для изучения 

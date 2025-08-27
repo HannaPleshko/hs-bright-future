@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Gift, Zap, Code, BookOpen, Target, Rocket, Sparkles, ArrowRight, Download, ExternalLink } from 'lucide-react';
 
 const GiftSection = () => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState<string | null>(null);
   const [selectedGift, setSelectedGift] = useState<string | null>(null);
 
   const gifts = [
@@ -16,26 +16,26 @@ const GiftSection = () => {
       icon: Target,
       color: 'from-blue-500 to-purple-600',
       action: 'Получить доступ',
-      link: '#interview-questions'
+      link: 'https://www.notion.so/b9bd52cb406e43219e55e45350a081e2?source=copy_link'
     },
-    {
-      id: 'roadmap',
-      title: 'Карта развития',
-      description: 'Пошаговый план становления FullStack разработчиком',
-      icon: Rocket,
-      color: 'from-purple-600 to-pink-500',
-      action: 'Скачать PDF',
-      link: '#roadmap'
-    },
-    {
-      id: 'resources',
-      title: 'Полезные ресурсы',
-      description: 'Подборка лучших материалов для изучения',
-      icon: BookOpen,
-      color: 'from-pink-500 to-orange-500',
-      action: 'Открыть список',
-      link: '#resources'
-    }
+    // {
+    //   id: 'roadmap',
+    //   title: 'Карта развития',
+    //   description: 'Пошаговый план становления FullStack разработчиком',
+    //   icon: Rocket,
+    //   color: 'from-purple-600 to-pink-500',
+    //   action: 'Скачать PDF',
+    //   link: '#roadmap'
+    // },
+    // {
+    //   id: 'resources',
+    //   title: 'Полезные ресурсы',
+    //   description: 'Подборка лучших материалов для изучения',
+    //   icon: BookOpen,
+    //   color: 'from-pink-500 to-orange-500',
+    //   action: 'Открыть список',
+    //   link: '#resources'
+    // }
   ];
 
   return (
@@ -64,7 +64,8 @@ const GiftSection = () => {
   
 
         {/* Additional Gifts Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
+        <div className="flex justify-center mb-16">
+          <div className="max-w-md">
           {gifts.map((gift, index) => (
             <Card 
               key={gift.id}
@@ -102,6 +103,7 @@ const GiftSection = () => {
 
             </Card>
           ))}
+          </div>
         </div>
 
     

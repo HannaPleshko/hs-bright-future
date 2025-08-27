@@ -73,24 +73,6 @@ const Footer = () => {
                 </p>
               </div>
 
-              {/* Achievements */}
-              <div className="space-y-3">
-                {achievements.map((achievement, index) => (
-                  <div 
-                    key={index}
-                    className="flex items-center gap-3 p-3 bg-white/5 rounded-xl hover:bg-white/10 transition-all duration-300 cursor-pointer group"
-                  >
-                    <div className={`w-8 h-8 bg-gradient-to-r ${achievement.color} rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                      <achievement.icon className="w-4 h-4 text-white" />
-                    </div>
-                    <div>
-                      <div className="text-lg font-bold text-white">{achievement.value}</div>
-                      <div className="text-xs text-white/70">{achievement.label}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
               {/* Social Links */}
               <div className="flex items-center gap-3 pt-2">
                 {socialLinks.map((social, index) => (
