@@ -2,20 +2,56 @@ import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Play, Clock, Users, Video, MessageCircle, BookOpen, Target } from 'lucide-react';
+import { Play, Video, MessageCircle, BookOpen, Target } from 'lucide-react';
 
 const HowLessonsWork = () => {
+  // Add floating animation styles
+  React.useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        25% { transform: translateY(-6px) rotate(1deg); }
+        50% { transform: translateY(-10px) rotate(0deg); }
+        75% { transform: translateY(-6px) rotate(-1deg); }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // Add hover functionality for info icons
+    const infoIcons = document.querySelectorAll('.group\\/info');
+    const noteBlocks = document.querySelectorAll('[id^="note-"]');
+    
+    infoIcons.forEach((icon, index) => {
+      const noteBlock = noteBlocks[index];
+      if (!noteBlock) return;
+      
+      icon.addEventListener('mouseenter', () => {
+        const rect = icon.getBoundingClientRect();
+        noteBlock.style.left = `${rect.left + rect.width / 2}px`;
+        noteBlock.style.top = `${rect.top - 20}px`;
+        noteBlock.style.transform = 'translate(-50%, -100%) scale(1)';
+        noteBlock.style.opacity = '1';
+        noteBlock.style.pointerEvents = 'auto';
+      });
+      
+      icon.addEventListener('mouseleave', () => {
+        noteBlock.style.opacity = '0';
+        noteBlock.style.transform = 'translate(-50%, -100%) scale(0.95)';
+        noteBlock.style.pointerEvents = 'none';
+      });
+    });
+    
+    return () => {
+      document.head.removeChild(style);
+      // Clean up event listeners
+      infoIcons.forEach((icon) => {
+        icon.removeEventListener('mouseenter', () => {});
+        icon.removeEventListener('mouseleave', () => {});
+      });
+    };
+  }, []);
   const lessonFeatures = [
-    {
-      icon: Clock,
-      title: "2-2.5 часа",
-      description: "Оптимальная продолжительность для эффективного обучения"
-    },
-    {
-      icon: Users,
-      title: "До 7 человек",
-      description: "Персональный подход к каждому студенту"
-    },
     {
       icon: Video,
       title: "Живое общение",
@@ -94,16 +130,16 @@ const HowLessonsWork = () => {
           {/* Right - Features */}
           <div className="space-y-8">
             {/* Lesson Features */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="flex gap-4 justify-center">
               {lessonFeatures.map((feature, index) => (
-                <Card key={index} className="p-4 hover-glow border-0 gradient-light text-center">
-                  <div className="space-y-3">
-                    <div className="gradient-blue-bg p-3 rounded-xl mx-auto w-fit">
-                      {React.createElement(feature.icon, { className: "w-5 h-5 text-white" })}
+                <Card key={index} className="p-3 hover-glow border-0 gradient-light text-center relative group min-w-[200px]">
+                  <div className="space-y-2">
+                    <div className="gradient-blue-bg p-2 rounded-lg mx-auto w-fit">
+                      {React.createElement(feature.icon, { className: "w-4 h-4 text-white" })}
                     </div>
                     <div>
-                      <h4 className="font-semibold text-sm">{feature.title}</h4>
-                      <p className="text-xs text-muted-foreground mt-1">{feature.description}</p>
+                      <h4 className="font-semibold text-sm mb-1">{feature.title}</h4>
+                      <p className="text-xs text-muted-foreground leading-tight">{feature.description}</p>
                     </div>
                   </div>
                 </Card>
@@ -129,20 +165,27 @@ const HowLessonsWork = () => {
             </div>
           </div>
         </div>
-
-        {/* Bottom Info */}
-        <div className="mt-12 text-center">
-          <Card className="p-6 max-w-2xl mx-auto gradient-neon-bg text-white border-0">
-            <div className="space-y-4">
-              <Target className="w-8 h-8 mx-auto" />
-              <h3 className="text-xl font-bold">Гибкий подход к обучению</h3>
-              <p className="text-white/90 text-sm">
-                Если какая-то тема требует больше времени — занятие может длиться дольше. 
-                Главное, чтобы материал был понятен каждому студенту.
+        
+        {/* Floating Note - Positioned at root level for proper z-index */}
+        {lessonFeatures.map((feature, index) => 
+          feature.note && (
+            <div 
+              key={`note-${index}`}
+              className="fixed w-56 p-4 bg-gradient-to-br from-blue-50 to-indigo-100 backdrop-blur-md rounded-2xl shadow-2xl border border-blue-300/50 overflow-hidden opacity-0 pointer-events-none transition-all duration-300 transform scale-95"
+              style={{
+                zIndex: 999999,
+                left: '50%',
+                top: '50%',
+                transform: 'translate(-50%, -50%) scale(0.95)'
+              }}
+              id={`note-${index}`}
+            >
+              <p className="text-sm text-blue-900 leading-relaxed text-center">
+                {feature.note}
               </p>
             </div>
-          </Card>
-        </div>
+          )
+        )}
       </div>
     </section>
   );

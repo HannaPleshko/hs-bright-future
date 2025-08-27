@@ -21,12 +21,12 @@ const TestimonialsSection = () => {
     {
       name: "Елена М.",
       role: "FullStack Developer",
-      company: "Удаленная работа на US клиента",
+      company: "IT-компания",
       location: "Удаленно",
       rating: 5,
-      text: "HSCHOOL - это не просто курсы, это полноценная подготовка к реальной работе. Год поддержки после окончания помог мне найти отличную удаленную работу с американским клиентом.",
-      salary: "$1200/месяц",
-      beforeAfter: "Переход из продаж в IT"
+      text: "HSCHOOL - это не просто курсы, это полноценная подготовка к реальной работе. Год поддержки после окончания помог мне найти отличную удаленную работу.",
+      salary: "",
+      beforeAfter: ""
     },
     {
       name: "Дмитрий В.",
@@ -86,12 +86,6 @@ const TestimonialsSection = () => {
             <Star className="w-4 h-4 mr-2" />
             Отзывы выпускников
           </Badge>
-          <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-            Истории <span className="gradient-neon-text">успеха</span> наших студентов
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Читайте реальные отзывы от тех, кто уже изменил свою жизнь с помощью HSCHOOL
-          </p>
         </div>
 
         {/* Main Testimonial Display */}
@@ -132,36 +126,17 @@ const TestimonialsSection = () => {
                     </div>
                   </div>
 
-                  {/* Success Metrics */}
-                  <div className="flex flex-wrap justify-center gap-4">
-                    <Badge className="gradient-blue-bg text-white px-4 py-2">
-                      {current.salary}
-                    </Badge>
-                    <Badge className="gradient-neon-bg text-white px-4 py-2">
-                      {current.beforeAfter}
-                    </Badge>
-                  </div>
 
-                  <p className="text-sm text-muted-foreground font-medium">
-                    {current.company}
-                  </p>
+
+
                 </div>
               </div>
             </div>
           </Card>
         </div>
 
-        {/* Navigation */}
+        {/* Navigation Dots */}
         <div className="flex justify-center items-center gap-8 mb-12">
-          <Button 
-            variant="outline" 
-            size="icon" 
-            onClick={prevTestimonial}
-            className="neon-border hover:bg-neon-blue/5"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </Button>
-
           <div className="flex space-x-2">
             {testimonials.map((_, index) => (
               <button
@@ -175,43 +150,9 @@ const TestimonialsSection = () => {
               />
             ))}
           </div>
-
-          <Button 
-            variant="outline" 
-            size="icon" 
-            onClick={nextTestimonial}
-            className="neon-border hover:bg-neon-blue/5"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </Button>
         </div>
 
-        {/* Success Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-          <Card className="p-6 text-center hover-glow border-0 gradient-light">
-            <div className="space-y-3">
-              <div className="text-4xl font-bold gradient-neon-text">90%</div>
-              <div className="text-sm font-semibold">Трудоустройство</div>
-              <div className="text-xs text-muted-foreground">выпускников успешно работают в IT</div>
-            </div>
-          </Card>
-          
-          <Card className="p-6 text-center hover-glow border-0 gradient-light">
-            <div className="space-y-3">
-              <div className="text-4xl font-bold gradient-neon-text">$800+</div>
-              <div className="text-sm font-semibold">Средняя зарплата</div>
-              <div className="text-xs text-muted-foreground">Junior разработчика после курса</div>
-            </div>
-          </Card>
-          
-          <Card className="p-6 text-center hover-glow border-0 gradient-light">
-            <div className="space-y-3">
-              <div className="text-4xl font-bold gradient-neon-text">6</div>
-              <div className="text-sm font-semibold">Месяцев</div>
-              <div className="text-xs text-muted-foreground">средний срок до трудоустройства</div>
-            </div>
-          </Card>
-        </div>
+
       </div>
     </section>
   );

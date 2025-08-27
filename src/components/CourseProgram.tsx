@@ -1,214 +1,338 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight, Code, Database, Globe, TestTube, Layers, Zap } from 'lucide-react';
-import frontendImage from '@/assets/course-frontend.jpg';
-import backendImage from '@/assets/course-backend.jpg';
+import { Code, Database, Globe, TestTube, Layers, Zap, Clock, Users, BookOpen, Target, ArrowRight, CheckCircle, Bug, Shield, Search } from 'lucide-react';
+import basicsImage from '@/assets/assets_task_01k3kcgv63f1mbxw2mmb3zv2hw_1756218719_img_1.webp';
+import frontendImage from '@/assets/assets_task_01k3kcrty5em4b45ryn0cd5czb_1756218996_img_0.webp';
+import backendImage from '@/assets/assets_task_01k3kddsm8ffssmjpf2neq2vmw_1756219654_img_1.webp';
+import testingImage from '@/assets/assets_task_01k3kesegwe84b36hnfh2jerkc_1756221091_img_1.webp';
 
 const CourseProgram = () => {
   const [currentModule, setCurrentModule] = useState(0);
+  const [expandedModules, setExpandedModules] = useState<number[]>([]);
+  const [expandedTopics, setExpandedTopics] = useState<number[]>([]);
+
+  const toggleModule = (index: number) => {
+    setExpandedModules(prev => 
+      prev.includes(index) 
+        ? prev.filter(i => i !== index)
+        : [...prev, index]
+    );
+  };
+
+  const toggleTopic = (index: number) => {
+    setExpandedTopics(prev => 
+      prev.includes(index) 
+        ? prev.filter(i => i !== index)
+        : [...prev, index]
+    );
+  };
 
   const modules = [
     {
       title: "Основы программирования",
       duration: "3 месяца",
       icon: Code,
-      gradient: "gradient-blue-bg",
-      image: frontendImage,
+      gradient: "from-blue-500 to-cyan-500",
+      color: "blue",
+      image: basicsImage,
       topics: [
-        "HTML и CSS - создание красивых интерфейсов",
-        "JavaScript + DOM - оживление страниц",
-        "Основы алгоритмов и структур данных",
-        "Git и работа с системами контроля версий"
+        {
+          title: "HTML, CSS и SCSS - создание UI интерфейсов",
+          subtopics: [
+            "Основные теги HTML",
+            "Стилизация с помощью CSS",
+            "Препроцессор SCSS",
+            "Адаптивный дизайн"
+          ]
+        },
+        {
+          title: "Основы JavaScript и TypeScript",
+          subtopics: [
+            "Базовые типы данных",
+            "Операторы и выражения",
+            "Функции и замыкания",
+            "Типизация в TypeScript"
+          ]
+        },
+        {
+          title: "Работа с DOM и асинхронность",
+          subtopics: [
+            "Изменение HTML с помощью JavaScript",
+            "Асинхронные операции",
+            "Event Loop и Call Stack",
+            "Promise и async/await"
+          ]
+        },
+        {
+          title: "Git и работа с системами контроля версий",
+          subtopics: [
+            "Основные команды Git",
+            "Ветвление и слияние",
+            "Конфликты",
+            "GitHub и GitLab"
+          ]
+        }
       ],
-      description: "Фундаментальные знания для любого разработчика"
+      description: "Фундаментальные знания для любого разработчика",
+      progress: 100,
+      status: "completed"
     },
     {
       title: "Frontend разработка",
       duration: "3 месяца",
       icon: Globe,
-      gradient: "gradient-accent-bg",
+      gradient: "from-purple-500 to-pink-500",
+      color: "purple",
       image: frontendImage,
       topics: [
-        "TypeScript - код, который сам себя проверяет",
-        "React + Redux - современные веб-приложения",
-        "Responsive дизайн и адаптивность",
-        "Работа с API и асинхронными запросами"
+        {
+          title: "React + Redux - современные веб-приложения",
+          subtopics: [
+            "Компоненты и JSX",
+            "State и props",
+            "Хуки (useState, useEffect, useMemo, useCallback, useReducer, useContext, useRef)",
+            "React Router"
+          ]
+        },
+        {
+          title: "Изучение хуков: useState, useEffect, useMemo, useCallback, useReducer, useContext, useRef",
+          subtopics: [
+            "useState: состояние компонента",
+            "useEffect: эффекты и зависимости",
+            "useMemo: оптимизация производительности",
+            "useCallback: мемоизация функций"
+          ]
+        },
+        {
+          title: "Работа с localStorage - сохранение данных в браузере",
+          subtopics: [
+            "Хранение данных в браузере",
+            "Сессионное хранилище",
+            "Web Storage API"
+          ]
+        },
+        {
+          title: "Material UI и Mantine - готовые компоненты для быстрой разработки",
+          subtopics: [
+            "Основные компоненты Material UI",
+            "Mantine: современные компоненты",
+            "Настройка темы и цветов"
+          ]
+        }
       ],
-      description: "Создание интерактивных пользовательских интерфейсов"
+      description: "Создание интерактивных пользовательских интерфейсов",
+      progress: 100,
+      status: "completed"
     },
     {
       title: "Backend разработка",
       duration: "3 месяца",
       icon: Database,
-      gradient: "gradient-neon-bg",
+      gradient: "from-green-500 to-emerald-500",
+      color: "green",
       image: backendImage,
       topics: [
-        "Node.js - серверная разработка",
-        "SQL и работа с базами данных",
-        "RESTful API и микросервисы",
-        "Безопасность и аутентификация"
+        {
+          title: "Node.js и Express - серверная разработка",
+          subtopics: [
+            "Основы Node.js",
+            "Express.js: маршрутизация и Middleware",
+            "HTTP методы и запросы",
+            "Аутентификация и авторизация"
+          ]
+        },
+        {
+          title: "SQL и работа с базами данных",
+          subtopics: [
+            "Основы SQL",
+            "Работа с PostgreSQL",
+            "ORM (Sequelize, Prisma)",
+            "Миграции баз данных"
+          ]
+        },
+        {
+          title: "Безопасность и аутентификация",
+          subtopics: [
+            "Хранение паролей",
+            "JWT и Cookies",
+            "Сессии и токены",
+            "Защита от CSRF и XSS"
+          ]
+        }
       ],
-      description: "Серверная логика и управление данными"
+      description: "Серверная логика и управление данными",
+      progress: 100,
+      status: "completed"
     },
     {
-      title: "Тестирование и DevOps",
-      duration: "В процессе",
-      icon: TestTube,
-      gradient: "gradient-blue-bg",
-      image: backendImage,
+      title: "Тестирование",
+      duration: "Дополнительно",
+      icon: Bug,
+      gradient: "from-orange-500 to-red-500",
+      color: "orange",
+      image: testingImage,
       topics: [
-        "Unit-тесты - покрытие кода тестами",
-        "CI/CD и автоматизация развертывания",
-        "Docker и контейнеризация",
-        "Мониторинг и логирование"
+        {
+          title: "Unit-тесты - покрытие кода тестами",
+          subtopics: [
+            "Jest: базовые тесты",
+            "Мокирование зависимостей",
+            "Интеграционные тесты"
+          ]
+        },
+        {
+          title: "Интеграционные тесты",
+          subtopics: [
+            "Тестирование API",
+            "Тестирование баз данных",
+            "Тестирование фронтенда"
+          ]
+        }
       ],
-      description: "Профессиональные инструменты разработки"
+      description: "Профессиональное тестирование кода",
+      progress: 60,
+      status: "in-progress"
     }
   ];
 
-  const nextModule = () => {
-    setCurrentModule((prev) => (prev + 1) % modules.length);
-  };
-
-  const prevModule = () => {
-    setCurrentModule((prev) => (prev - 1 + modules.length) % modules.length);
-  };
-
   return (
-    <section className="py-12 relative overflow-hidden">
-      <div className="absolute inset-0 gradient-dark opacity-5"></div>
-      
+    <section className="py-16 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5"></div>
       <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-2 text-neon-orange font-semibold mb-4">
-            <Layers className="w-5 h-5" />
-            <span>Программа обучения</span>
+        {/* Header Section */}
+        <div className="text-center mb-16">
+          <div className="flex items-center justify-center gap-2 text-blue-600 font-semibold mb-6">
+            <Layers className="w-6 h-6" />
+            <span className="text-lg">Программа обучения</span>
           </div>
-          <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-            <span className="gradient-neon-text">JavaScript FullStack</span> Developer
+          <h2 className="text-4xl lg:text-6xl font-bold mb-8 leading-tight">
+            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              JavaScript FullStack
+            </span>
+            <br />
+            <span className="text-gray-800">Developer</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+          <p className="text-xl lg:text-2xl text-gray-600 max-w-4xl mx-auto mb-12 leading-relaxed">
             9 месяцев структурированного обучения + год бесплатного сопровождения до трудоустройства
           </p>
-          
-          {/* Course Features */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            <Badge className="px-4 py-2 gradient-blue-bg text-white">
-              <Zap className="w-4 h-4 mr-2" />
-              3 занятия в неделю
-            </Badge>
-            <Badge className="px-4 py-2 gradient-accent-bg text-white">
-              2-2.5 часа занятие
-            </Badge>
-            <Badge className="px-4 py-2 gradient-neon-bg text-white">
-              До 7 человек в группе
-            </Badge>
+          {/* Course Features Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-16">
+            <div className="flex items-center gap-4 p-4 bg-white/80 backdrop-blur-sm rounded-2xl border border-blue-200/50 shadow-lg">
+              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                <Clock className="w-6 h-6 text-white" />
+              </div>
+              <div className="text-left">
+                <div className="font-bold text-gray-800">3 занятия в неделю</div>
+                <div className="text-sm text-gray-600">Регулярный график</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-4 p-4 bg-white/80 backdrop-blur-sm rounded-2xl border border-purple-200/50 shadow-lg">
+              <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                <Clock className="w-6 h-6 text-white" />
+              </div>
+              <div className="text-left">
+                <div className="font-bold text-gray-800">2-2.5 часа занятие</div>
+                <div className="text-sm text-gray-600">Оптимальная длительность</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-4 p-4 bg-white/80 backdrop-blur-sm rounded-2xl border border-green-200/50 shadow-lg">
+              <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+                <Users className="w-6 h-6 text-white" />
+              </div>
+              <div className="text-left">
+                <div className="font-bold text-gray-800">До 7 человек в группе</div>
+                <div className="text-sm text-gray-600">Персональный подход</div>
+              </div>
+            </div>
           </div>
         </div>
-
-        {/* Interactive Module Showcase */}
-        <div className="max-w-6xl mx-auto">
-          <div className="relative">
-            {/* Navigation */}
-            <div className="flex justify-between items-center mb-8">
-              <Button 
-                variant="outline" 
-                size="icon" 
-                onClick={prevModule}
-                className="neon-border hover:bg-neon-blue/5"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </Button>
-              
-              <div className="flex space-x-2">
-                {modules.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentModule(index)}
-                    className={`w-3 h-3 rounded-full transition-all ${
-                      index === currentModule 
-                        ? 'bg-neon-pink w-8' 
-                        : 'bg-muted-foreground/30 hover:bg-neon-blue/50'
-                    }`}
-                  />
+        {/* Interactive Module Display */}
+        <div className="max-w-7xl mx-auto">
+          {/* Module Navigation */}
+          <div className="flex justify-center mb-12">
+            <div className="flex gap-2 p-2 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200/50 shadow-lg">
+              {modules.map((module, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentModule(index)}
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                    index === currentModule
+                      ? `bg-gradient-to-r ${module.gradient} text-white shadow-lg scale-105`
+                      : 'text-gray-600 hover:text-gray-800 hover:bg-gray-100'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <module.icon className="w-5 h-5" />
+                    <span className="hidden sm:inline">{module.title}</span>
+                    <span className="sm:hidden">{index + 1}</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+          {/* Current Module Display */}
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left - Topics List */}
+            <div className="space-y-4">
+              <h3 className="text-2xl font-bold text-gray-800 mb-6">
+                {modules[currentModule].title}
+              </h3>
+              <div className="space-y-3">
+                {modules[currentModule].topics.map((topic, index) => (
+                  <div key={index} className="bg-white/60 rounded-xl border border-gray-200/50 overflow-hidden">
+                    {/* Topic Header - Clickable */}
+                    <button
+                      onClick={() => toggleTopic(index)}
+                      className="w-full p-3 text-left hover:bg-gray-50/50 transition-colors duration-200 flex items-center justify-between"
+                    >
+                      <div className="flex items-start gap-3">
+                        <div className={`w-2 h-2 bg-gradient-to-r ${modules[currentModule].gradient} rounded-full mt-2 flex-shrink-0`}></div>
+                        <span className="text-gray-700 leading-relaxed font-medium">{topic.title}</span>
+                      </div>
+                      {/* Expand/Collapse Icon */}
+                      <div className={`w-4 h-4 transition-transform duration-300 ${
+                        expandedTopics.includes(index) ? 'rotate-180' : ''
+                      }`}>
+                        <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </div>
+                    </button>
+                    
+                    {/* Expandable Subtopic Content */}
+                    <div className={`overflow-hidden transition-all duration-300 ${
+                      expandedTopics.includes(index) ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
+                    }`}>
+                      <div className="px-6 pb-3 space-y-2">
+                        <ul className="space-y-1 list-disc text-gray-600 text-sm pl-4">
+                          {topic.subtopics.map((subtopic, subIndex) => (
+                            <li key={subIndex} className="text-gray-600">{subtopic}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                 ))}
               </div>
-              
-              <Button 
-                variant="outline" 
-                size="icon" 
-                onClick={nextModule}
-                className="neon-border hover:bg-neon-blue/5"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </Button>
             </div>
+            {/* Right - Module Image */}
+            <div className="relative">
+              <div className="relative overflow-hidden rounded-3xl shadow-lg">
+                <img 
+                  src={modules[currentModule].image} 
+                  alt={modules[currentModule].title}
+                  className="w-full h-96 object-cover transition-transform duration-700 hover:scale-110"
+                />
 
-            {/* Current Module Display */}
-            <Card className="overflow-hidden hover-glow border-0 gradient-light">
-              <div className="grid lg:grid-cols-2 gap-0">
-                {/* Left - Image */}
-                <div className="relative h-80 lg:h-auto">
-                  <img 
-                    src={modules[currentModule].image} 
-                    alt={modules[currentModule].title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div>
-                  <div className={`absolute top-6 left-6 ${modules[currentModule].gradient} p-4 rounded-xl shadow-lg`}>
-                    {React.createElement(modules[currentModule].icon, { className: "w-8 h-8 text-white" })}
-                  </div>
-                </div>
-
-                {/* Right - Content */}
-                <div className="p-8 lg:p-12 space-y-6">
-                  <div className="space-y-4">
-                    <Badge className={`${modules[currentModule].gradient} text-white px-3 py-1`}>
-                      {modules[currentModule].duration}
-                    </Badge>
-                    <h3 className="text-3xl font-bold">{modules[currentModule].title}</h3>
-                    <p className="text-muted-foreground">{modules[currentModule].description}</p>
-                  </div>
-
-                  <div className="space-y-4">
-                    <h4 className="text-lg font-semibold">Что изучаем:</h4>
-                    <ul className="space-y-3">
-                      {modules[currentModule].topics.map((topic, topicIndex) => (
-                        <li key={topicIndex} className="flex items-start gap-3">
-                          <div className="w-2 h-2 bg-neon-pink rounded-full mt-2 flex-shrink-0"></div>
-                          <span className="text-muted-foreground">{topic}</span>
-                        </li>
-                      ))}
-                    </ul>
+                {/* Module Badge Overlay */}
+                <div className="absolute top-6 right-6">
+                  <div className={`px-4 py-2 bg-gradient-to-r ${modules[currentModule].gradient} text-white rounded-full font-semibold shadow-lg`}>
+                    Модуль {currentModule + 1} из {modules.length}
                   </div>
                 </div>
               </div>
-            </Card>
-          </div>
-
-          {/* Timeline Overview */}
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-4 gap-4">
-            {modules.map((module, index) => (
-              <Card 
-                key={index}
-                className={`p-6 cursor-pointer transition-all hover-glow border-0 ${
-                  index === currentModule 
-                    ? 'gradient-light ring-2 ring-neon-pink/50' 
-                    : 'bg-card hover:bg-accent/50'
-                }`}
-                onClick={() => setCurrentModule(index)}
-              >
-                <div className="text-center space-y-3">
-                  <div className={`${module.gradient} p-3 rounded-xl mx-auto w-fit`}>
-                    {React.createElement(module.icon, { className: "w-6 h-6 text-white" })}
-                  </div>
-                  <h4 className="font-semibold text-sm">{module.title}</h4>
-                  <p className="text-xs text-muted-foreground">{module.duration}</p>
-                </div>
-              </Card>
-            ))}
+            </div>
           </div>
         </div>
       </div>

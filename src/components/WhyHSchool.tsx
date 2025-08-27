@@ -1,141 +1,122 @@
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Users, BookOpen, Award, MessageCircle, Clock, Target, Shield } from 'lucide-react';
+import { 
+  Code, 
+  Users, 
+  Award, 
+  Clock, 
+  Target, 
+  Zap, 
+  Shield, 
+  TrendingUp,
+  CheckCircle,
+  Star,
+  Rocket,
+  Heart
+} from 'lucide-react';
 
 const WhyHSchool = () => {
   const reasons = [
     {
-      icon: BookOpen,
-      title: "Большой стэк технологий",
-      description: "После окончания курса у каждого студента будет выбор: frontend, backend или fullstack",
-      gradient: "gradient-blue-bg",
-      highlight: "Универсальность"
+      id: 'refund',
+      number: '1',
+      title: 'В течение первого месяца можно вернуть оплату',
+      description: 'Полная гарантия возврата средств, если обучение не подходит',
+      color: 'from-blue-500 to-cyan-500'
     },
     {
-      icon: Users,
-      title: "Мини-группы до 7 человек",
-      description: "Лучше всего материал усваивается в небольших группах с индивидуальным подходом",
-      gradient: "gradient-accent-bg",
-      highlight: "Персональный подход"
+      id: 'free-continue',
+      number: '2',
+      title: 'В случае трудоустройства во время обучения вы можете продолжить учиться в нашей школе на бесплатной основе',
+      description: 'Учитесь бесплатно, если нашли работу до окончания курса',
+      color: 'from-green-500 to-emerald-500'
     },
     {
-      icon: Award,
-      title: "Опытные менторы",
-      description: "Преподаватели с 5+ годами практического опыта в IT сфере делятся реальными кейсами",
-      gradient: "gradient-neon-bg",
-      highlight: "Практический опыт"
+      id: 'support-year',
+      number: '3',
+      title: 'После обучения наша школа предоставляет год бесплатного сопровождения',
+      description: 'Занятия 2 раза в неделю по 1ч - 1ч 30мин. Именно благодаря этому пункту мы имеем большой процент трудоустройств',
+      color: 'from-purple-600 to-pink-500'
     },
     {
-      icon: Target,
-      title: "Индивидуальное портфолио",
-      description: "По окончании обучения у каждого студента будет портфолио из собственных проектов",
-      gradient: "gradient-blue-bg",
-      highlight: "Готовые проекты"
+      id: 'individual',
+      number: '4',
+      title: 'В стоимость обучения входят индивидуальные занятия',
+      description: 'В случае если вам трудно дается материал',
+      color: 'from-pink-500 to-orange-500'
     },
     {
-      icon: MessageCircle,
-      title: "Постоянная обратная связь",
-      description: "Telegram чат с преподавателями и сокурсниками для решения всех вопросов 24/7",
-      gradient: "gradient-accent-bg",
-      highlight: "Поддержка 24/7"
+      id: 'interviews',
+      number: '5',
+      title: 'Также мы готовим к собеседованиям',
+      description: 'Создаем имитацию того, как они проходят в реальной жизни',
+      color: 'from-orange-500 to-red-500'
     },
     {
-      icon: Clock,
-      title: "Гибкая поддержка",
-      description: "Доступ к платформе обучения 24/7, помощь с наверстыванием пропущенного материала",
-      gradient: "gradient-neon-bg",
-      highlight: "Гибкость обучения"
+      id: 'freelance',
+      number: '6',
+      title: 'По запросу мы помогаем с выходом на фриланс',
+      description: 'Платформа кворк и другие фриланс-сервисы',
+      color: 'from-red-500 to-pink-600'
     },
     {
-      icon: Shield,
-      title: "Гарантия трудоустройства",
-      description: "Подготовка к собеседованиям и бесплатное сопровождение до полного трудоустройства",
-      gradient: "gradient-blue-bg",
-      highlight: "Результат гарантирован"
+      id: 'portfolio',
+      number: '7',
+      title: 'Также помогаем с созданием портфолио, резюме и тд',
+      description: 'Подготовка к поиску работы и продвижению себя на рынке',
+      color: 'from-indigo-500 to-purple-600'
     }
   ];
 
   return (
-    <section className="py-12 relative overflow-hidden">
-      <div className="absolute inset-0 gradient-light opacity-30"></div>
+    <section className="py-16 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5"></div>
       
       <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-12">
-          <Badge className="gradient-accent-bg text-white px-4 py-2 mb-6">
-            Почему выбирают нас
-          </Badge>
-          <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-            <span className="gradient-neon-text">7 причин</span> выбрать HSCHOOL
+        <div className="text-center mb-16">
+          <div className="flex items-center justify-center gap-2 text-purple-600 font-semibold mb-6">
+            <Star className="w-6 h-6" />
+            <span className="text-lg">Почему выбирают нас</span>
+          </div>
+          <h2 className="text-4xl lg:text-6xl font-bold mb-8 leading-tight">
+            <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 bg-clip-text text-transparent">
+              7 причин
+            </span>
+            <br />
+            <span className="text-gray-800">выбрать HSCHOOL</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Мы создали уникальную методику обучения, которая помогла 100+ студентам войти в IT
+          <p className="text-xl lg:text-2xl text-gray-600 max-w-4xl mx-auto mb-12 leading-relaxed">
+            Мы создали уникальную образовательную экосистему, которая гарантирует ваш успех в IT
           </p>
         </div>
 
-        {/* Reasons Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        {/* Main Reasons Grid */}
+        <div className="max-w-6xl mx-auto space-y-6">
           {reasons.map((reason, index) => (
             <Card 
-              key={index} 
-              className="group p-8 hover-glow border-0 gradient-light transition-all duration-300 hover:scale-105"
+              key={reason.id}
+              className="p-8 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200/50 shadow-lg hover:shadow-xl transition-shadow duration-300"
             >
-              <div className="space-y-6">
-                {/* Icon with gradient background */}
-                <div className="relative">
-                  <div className={`${reason.gradient} p-4 rounded-2xl w-fit shadow-lg group-hover:shadow-xl transition-shadow`}>
-                    {React.createElement(reason.icon, { className: "w-8 h-8 text-white" })}
-                  </div>
-                  <div className="absolute -top-2 -right-2">
-                    <Badge className="gradient-neon-bg text-white text-xs px-2 py-1">
-                      {index + 1}
-                    </Badge>
-                  </div>
+              <div className="flex items-start gap-6">
+                {/* Number Badge */}
+                <div className={`flex-shrink-0 w-16 h-16 bg-gradient-to-r ${reason.color} rounded-2xl flex items-center justify-center shadow-lg`}>
+                  <span className="text-2xl font-bold text-white">{reason.number}</span>
                 </div>
-
+                
                 {/* Content */}
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="text-xl font-bold mb-2">{reason.title}</h3>
-                    <Badge variant="secondary" className="text-xs mb-3 text-neon-blue">
-                      {reason.highlight}
-                    </Badge>
-                  </div>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
+                <div className="flex-1">
+                  <h4 className="text-xl font-bold mb-3 text-gray-800 leading-tight">
+                    {reason.title}
+                  </h4>
+                  
+                  <p className="text-gray-600 leading-relaxed">
                     {reason.description}
                   </p>
                 </div>
               </div>
             </Card>
           ))}
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="text-center mt-16">
-          <Card className="p-8 max-w-2xl mx-auto gradient-neon-bg text-white border-0">
-            <div className="space-y-4">
-              <h3 className="text-2xl font-bold">Готовы начать свой путь в IT?</h3>
-              <p className="text-white/90">
-                Более 90% наших выпускников успешно трудоустроились в IT-компании
-              </p>
-              <div className="flex justify-center items-center gap-8 pt-4">
-                <div className="text-center">
-                  <div className="text-3xl font-bold">100+</div>
-                  <div className="text-sm text-white/80">Выпускников</div>
-                </div>
-                <div className="w-px h-12 bg-white/20"></div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold">90%</div>
-                  <div className="text-sm text-white/80">Трудоустройство</div>
-                </div>
-                <div className="w-px h-12 bg-white/20"></div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold">7+</div>
-                  <div className="text-sm text-white/80">Лет опыта</div>
-                </div>
-              </div>
-            </div>
-          </Card>
         </div>
       </div>
     </section>

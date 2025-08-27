@@ -1,9 +1,7 @@
 import React from 'react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { HelpCircle, MessageCircle } from 'lucide-react';
+import { HelpCircle } from 'lucide-react';
 
 const FAQ = () => {
   const scrollToForm = () => {
@@ -47,7 +45,8 @@ const FAQ = () => {
 
   return (
     <section id="faq" className="py-16 relative overflow-hidden">
-      <div className="absolute inset-0 gradient-dark opacity-5"></div>
+      {/* Simple Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-blue-50/30"></div>
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-12">
@@ -64,56 +63,27 @@ const FAQ = () => {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <Card className="p-6 lg:p-8 gradient-light border-0 hover-glow">
-            <Accordion type="single" collapsible className="space-y-4">
-              {faqs.map((faq, index) => (
-                <AccordionItem 
-                  key={index} 
-                  value={`item-${index}`}
-                  className="border border-border/50 rounded-lg px-4 bg-background/50"
-                >
-                  <AccordionTrigger className="text-left hover:no-underline py-4">
-                    <span className="font-semibold text-sm lg:text-base pr-4">{faq.question}</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="pb-4 pt-2">
-                    <p className="text-muted-foreground text-sm lg:text-base leading-relaxed">
-                      {faq.answer}
-                    </p>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </Card>
+          <Accordion type="single" collapsible className="space-y-4">
+            {faqs.map((faq, index) => (
+              <AccordionItem 
+                key={index} 
+                value={`item-${index}`}
+                className="bg-white border border-gray-200 rounded-xl px-6 py-4 shadow-md hover:shadow-lg transition-shadow duration-300"
+              >
+                <AccordionTrigger className="text-left hover:no-underline py-2">
+                  <span className="font-semibold text-base lg:text-lg pr-4 text-gray-800">{faq.question}</span>
+                </AccordionTrigger>
+                <AccordionContent className="pb-2 pt-3">
+                  <p className="text-gray-600 text-sm lg:text-base leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
 
-        {/* Contact CTA */}
-        <div className="text-center mt-12">
-          <Card className="p-6 max-w-2xl mx-auto gradient-blue-bg text-white border-0">
-            <div className="space-y-4">
-              <MessageCircle className="w-8 h-8 mx-auto" />
-              <h3 className="text-xl font-bold">Не нашли ответ на свой вопрос?</h3>
-              <p className="text-white/90 text-sm">
-                Свяжитесь с нами напрямую, и мы ответим на все ваши вопросы
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  variant="outline" 
-                  className="border-white/20 text-white hover:bg-white/10"
-                  onClick={() => window.open('https://t.me/hschool_anna', '_blank')}
-                >
-                  Написать в Telegram
-                </Button>
-                <Button 
-                  variant="outline"
-                  className="border-white/20 text-white hover:bg-white/10"
-                  onClick={scrollToForm}
-                >
-                  Задать вопрос в форме
-                </Button>
-              </div>
-            </div>
-          </Card>
-        </div>
+
       </div>
     </section>
   );

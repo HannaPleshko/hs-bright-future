@@ -1,73 +1,216 @@
-# Welcome to your Lovable project
+# HSCHOOL - Modern IT Education Platform
 
-## Project info
+Современная образовательная платформа для обучения FullStack разработке с интерактивным UI и анимациями.
 
-**URL**: https://lovable.dev/projects/502181ff-c70e-49d6-82b5-837ce8dd788f
+## ✨ Новые возможности и улучшения
 
-## How can I edit this code?
+### 🎨 Современный UI/UX
+- **Glassmorphism эффекты** - полупрозрачные карточки с размытием
+- **Градиентные анимации** - плавные переходы цветов
+- **Интерактивные элементы** - hover эффекты и анимации
+- **Responsive дизайн** - адаптация под все устройства
 
-There are several ways of editing your application.
+### 🚀 Анимации и интерактивность
+- **Scroll-triggered анимации** - элементы появляются при скролле
+- **Параллакс эффекты** - 3D карточки с движением мыши
+- **Плавные переходы** - CSS transitions и transforms
+- **Интерактивные кнопки** - современные эффекты и состояния
 
-**Use Lovable**
+### 🎯 Новые компоненты
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/502181ff-c70e-49d6-82b5-837ce8dd788f) and start prompting.
+#### ScrollAnimation
+Компонент для анимации элементов при скролле с различными эффектами:
+- `fadeIn` - появление с прозрачности
+- `fadeInUp` - появление снизу вверх
+- `fadeInLeft/Right` - появление с боков
+- `scaleIn` - появление с масштабирования
+- `slideIn` - появление сдвигом
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```tsx
+<ScrollAnimation animation="fadeInUp" delay={200}>
+  <YourComponent />
+</ScrollAnimation>
 ```
 
-**Edit a file directly in GitHub**
+#### InteractiveCard
+Интерактивные карточки с различными вариантами и эффектами:
+- `glass` - стеклянный эффект
+- `gradient` - градиентный фон
+- `neon` - неоновое свечение
+- Hover эффекты: `lift`, `scale`, `glow`, `border`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```tsx
+<InteractiveCard variant="glass" hoverEffect="lift">
+  <CardContent />
+</InteractiveCard>
+```
 
-**Use GitHub Codespaces**
+#### ParallaxCard
+3D карточки с параллакс эффектом при движении мыши:
+- Настраиваемая скорость и интенсивность
+- Различные направления движения
+- Плавные 3D трансформации
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```tsx
+<ParallaxCard speed={0.5} direction="up" intensity={20}>
+  <CardContent />
+</ParallaxCard>
+```
 
-## What technologies are used for this project?
+#### ModernButton
+Современные кнопки с множеством вариантов:
+- `gradient` - градиентный фон
+- `neon` - неоновое свечение
+- `glass` - стеклянный эффект
+- `outline` - контурный стиль
+- Shimmer эффект и ripple анимация
 
-This project is built with:
+```tsx
+<ModernButton 
+  variant="gradient" 
+  size="lg" 
+  icon={ArrowRight}
+  iconPosition="right"
+>
+  Нажми меня
+</ModernButton>
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+#### AnimatedStats
+Анимированные счетчики статистики:
+- Плавный счет до целевого значения
+- Настраиваемая длительность анимации
+- Иконки и цветовые схемы
+- Hover эффекты
 
-## How can I deploy this project?
+```tsx
+<AnimatedStats 
+  stats={[
+    { value: 100, label: "Выпускников", icon: Users },
+    { value: 90, label: "Трудоустройство", icon: Award }
+  ]}
+  duration={2000}
+/>
+```
 
-Simply open [Lovable](https://lovable.dev/projects/502181ff-c70e-49d6-82b5-837ce8dd788f) and click on Share -> Publish.
+### 🎭 Улучшенные существующие компоненты
 
-## Can I connect a custom domain to my Lovable project?
+#### Header
+- Анимированный прогресс-бар скролла
+- Скрытие/показ при скролле
+- Активные индикаторы навигации
+- Улучшенные hover эффекты
 
-Yes, you can!
+#### HeroSection
+- Интерактивное следование за мышью
+- Плавающие элементы кода
+- Анимированные статистики
+- Улучшенные кнопки
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+#### Footer
+- Анимированные фоновые элементы
+- Интерактивные ссылки
+- Социальные иконки
+- Современный дизайн
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+#### PricingSection
+- Интерактивные карточки тарифов
+- Hover эффекты и анимации
+- Улучшенные гарантии
+- Современные кнопки
+
+#### PreRegistrationForm
+- Анимированные поля ввода
+- Интерактивные опции курсов
+- Улучшенная валидация
+- Состояния загрузки
+
+### 🎨 CSS классы и утилиты
+
+#### Анимации
+- `.animate-float` - плавающая анимация
+- `.animate-float-delayed` - задержанная плавающая анимация
+- `.animate-float-slow` - медленная плавающая анимация
+- `.animate-pulse-neon` - неоновое пульсирование
+
+#### Эффекты
+- `.glass` - стеклянный эффект
+- `.glass-dark` - темный стеклянный эффект
+- `.modern-card` - современные карточки
+- `.btn-modern` - современные кнопки
+
+#### Градиенты
+- `.gradient-neon-text` - неоновый текст
+- `.text-gradient-animate` - анимированный градиентный текст
+- `.interactive-border` - интерактивная граница
+
+### 🔧 Хуки
+
+#### useScroll
+```tsx
+const { scrollY, scrollProgress, isScrolled } = useScroll();
+```
+
+#### useScrollDirection
+```tsx
+const scrollDirection = useScrollDirection(); // 'up' | 'down' | null
+```
+
+#### useScrollToSection
+```tsx
+const scrollToSection = useScrollToSection();
+scrollToSection('section-id', 80); // с отступом
+```
+
+### 📱 Responsive дизайн
+- Адаптивная сетка для всех компонентов
+- Мобильная навигация с анимациями
+- Оптимизированные размеры для всех устройств
+- Touch-friendly интерактивные элементы
+
+### 🎯 Производительность
+- Оптимизированные CSS анимации
+- Lazy loading для анимаций
+- Эффективные event listeners
+- Минимальные re-renders
+
+## 🚀 Запуск проекта
+
+```bash
+# Установка зависимостей
+npm install
+
+# Запуск в режиме разработки
+npm run dev
+
+# Сборка для продакшена
+npm run build
+```
+
+## 🎨 Настройка темы
+
+Все цвета и анимации настраиваются в `src/index.css`:
+- CSS переменные для цветов
+- Настраиваемые анимации
+- Градиентные схемы
+- Тени и эффекты
+
+## 📚 Документация компонентов
+
+Каждый компонент имеет TypeScript интерфейсы и JSDoc комментарии для легкого использования и понимания.
+
+## 🤝 Вклад в проект
+
+1. Fork репозитория
+2. Создайте feature branch
+3. Commit изменения
+4. Push в branch
+5. Создайте Pull Request
+
+## 📄 Лицензия
+
+MIT License - см. файл LICENSE для деталей.
+
+---
+
+**HSCHOOL** - Создано с ❤️ для будущих разработчиков

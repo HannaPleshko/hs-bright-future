@@ -1,20 +1,13 @@
 import React from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
-import { Users, Globe, Award, Code2 } from 'lucide-react';
-import annaPortrait from '@/assets/anna-portrait.jpg';
+import { Code2 } from 'lucide-react';
+import annaPortrait from '@/assets/IMG_4340.JPG';
 
 const AboutTeacher = () => {
   const technologies = [
     "React.js", "Node.js", "TypeScript", "Vue.js", "Next.js", "Redux",
     "TailwindCSS", "Express", "NestJS", "PostgreSQL", "MongoDB", "Docker"
-  ];
-
-  const achievements = [
-    { icon: Globe, label: "20+ клиентов из UK, USA, EU", value: "Международный опыт" },
-    { icon: Code2, label: "7+ лет коммерческого опыта", value: "Практикующий разработчик" },
-    { icon: Award, label: "Престижный вуз BSUIR", value: "Качественное образование" },
-    { icon: Users, label: "100+ выпускников", value: "Проверенная методика" }
   ];
 
   return (
@@ -35,7 +28,7 @@ const AboutTeacher = () => {
           {/* Left - Photo and basic info */}
           <div className="space-y-8">
             <div className="relative">
-              <div className="w-80 h-80 mx-auto relative">
+              <div className="w-96 h-96 mx-auto relative">
                 <img 
                   src={annaPortrait} 
                   alt="Анна - преподаватель HSCHOOL" 
@@ -58,23 +51,6 @@ const AboutTeacher = () => {
 
           {/* Right - Detailed info */}
           <div className="space-y-8">
-            {/* Achievements Grid */}
-            <div className="grid grid-cols-2 gap-4">
-              {achievements.map((achievement, index) => (
-                <Card key={index} className="p-6 hover-glow border-0 gradient-light">
-                  <div className="flex flex-col items-center text-center space-y-3">
-                    <div className="gradient-blue-bg p-3 rounded-xl">
-                      <achievement.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-sm">{achievement.value}</p>
-                      <p className="text-xs text-muted-foreground mt-1">{achievement.label}</p>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
-
             {/* Technologies */}
             <div className="space-y-4">
               <h4 className="text-xl font-semibold">Технологический стек:</h4>
@@ -92,17 +68,26 @@ const AboutTeacher = () => {
             </div>
 
             {/* Story */}
-            <Card className="p-6 gradient-light hover-glow border-0">
-              <div className="space-y-4">
-                <h4 className="text-lg font-semibold gradient-neon-text">Моя история</h4>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Еще будучи студенткой BSUIR, я поняла, что программирование преподается слишком сжато. 
-                  Получив коммерческий опыт, я начала помогать друзьям входить в IT. 
-                  Оказалось, у меня есть талант объяснять сложные вещи простыми словами. 
-                  Так родилась HSCHOOL — школа, где каждый может стать программистом.
+            <div className="space-y-4">
+              <h4 className="text-xl font-semibold gradient-neon-text">Моя история</h4>
+              <div className="space-y-4 text-muted-foreground leading-relaxed">
+                <p>
+                  Еще будучи студенткой BSUIR, я поняла, что программирование преподается слишком сжато и теоретично. 
+                  Многие концепции объяснялись поверхностно, а практических навыков катастрофически не хватало.
+                </p>
+                <p>
+                  Получив коммерческий опыт в крупных IT-компаниях, я начала помогать друзьям и знакомым входить в IT. 
+                  Оказалось, у меня есть природный талант объяснять сложные вещи простыми словами и разбивать сложные темы на понятные части.
+                </p>
+                <p>
+                  Видя, как мои ученики успешно находят работу и развиваются в IT, я поняла, что могу помочь гораздо большему количеству людей. 
+                  Так родилась HSCHOOL — школа, где каждый, независимо от возраста и бэкграунда, может стать востребованным программистом.
+                </p>
+                <p>
+                  Сегодня HSCHOOL — это не просто курсы, а сообщество единомышленников, где мы вместе строим будущее IT-образования.
                 </p>
               </div>
-            </Card>
+            </div>
           </div>
         </div>
       </div>
