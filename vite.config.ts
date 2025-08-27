@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     target: 'esnext',
-    modulePreload: false,
+    modulePreload: true,
     rollupOptions: {
       output: {
         format: 'es',
