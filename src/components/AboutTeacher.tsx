@@ -2,7 +2,7 @@ import React from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Code2 } from 'lucide-react';
-import annaPortrait from '@/assets/IMG_4340.JPG';
+import annaPortrait from '@/assets/assets_task_01k3kcgv63f1mbxw2mmb3zv2hw_1756218719_img_1.webp';
 
 const AboutTeacher = () => {
   const technologies = [
